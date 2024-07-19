@@ -101,7 +101,7 @@
 
 // }
 
-let arr=[23,4,5,6,7];
+//let arr=[23,4,5,6,7];
 //FILTER
 //let result=[];
 // for(i=0;i<arr.length;i++)
@@ -130,30 +130,99 @@ let arr=[23,4,5,6,7];
 //     else
 //         results.push(item);
 // })
-let results=arr.map(function(item){
+// let results=arr.map(function(item){
 
-    // if(item%2==0)
-    //     return item*2;
-    // else
-    //     return item;
-    return (item%2==0?item*2:item);
-})
-console.log(results);
-
-//foreach, map, filter
-// function iterate(item,index,array)
-// {
-// console.log(item);
-
-// }
-
-// arr.forEach(iterate);
-// arr.forEach(function(item){
-
-//     return ;
+//     // if(item%2==0)
+//     //     return item*2;
+//     // else
+//     //     return item;
+//     return (item%2==0?item*2:item);
 // })
+// console.log(results);
+
+// //foreach, map, filter
+// // function iterate(item,index,array)
+// // {
+// // console.log(item);
+
+// // }
+
+// // arr.forEach(iterate);
+// // arr.forEach(function(item){
+
+// //     return ;
+// // })
+
+//objects
+// let obj={"10th":'Code','age':30,'name':'Test'}
+// //obj.name
+// //console.log(obj["10th"]);
+// //let key="name";
+// // console.log(key);
+// // console.log(obj.key);
+// // console.log(obj[key]);
+
+// //console.log(obj["name"]);
+
+// //console.log(obj.name);
+// for(x in obj)
+//     {
+//         console.log(x);
+//         console.log(obj[x]);
 
 
+//     }
+
+// let obj={};
+// obj.name="Test";
+// //console.log(obj);
+// //console.log(obj.city);
+// obj.city="";
+
+// console.log(obj);
+// delete obj.name;
+// console.log(obj);
+
+//
+let person={
+    name:'Code',
+    age:30,
+    getName:printName
+};
+let person1={
+    name:'Quotient',
+    age:30,
+    getName:printName
+};
+person1.getName();
 
 
+function printName()
+{
+   
+        console.log(this.name);
+
+}
+
+//ARRAY OF OBJECTS
+// let arr=[person,person1];
+// arr.forEach(function(item){
+//     console.log(item.name);
+
+// })
+let obj={
+    name:'Code',
+    age:30,
+    education:[490,420],
+    marks:{'x':490,'xii':400}
+
+}
+//obj.education[0]
+obj.education.forEach(function(item){
+    console.log(item);
+})
+console.log(obj.marks.x);
+
+
+//let arr=[{id:"Item1",rate:30},{id:"Item2",rate:90}]
 
