@@ -28,7 +28,7 @@
 
 // })
 //ASSIGN2
-let digits=document.querySelector("#digits");
+let digits = document.querySelector("#digits");
 // let btn1=document.querySelector("#btn1");
 // let btn2=document.querySelector("#btn2");
 // let btn3=document.querySelector("#btn3");
@@ -82,49 +82,139 @@ let digits=document.querySelector("#digits");
 //     //a=a+10 a+=10
 //     digits.innerText+=target.innerText;
 // }
-let tasks=[];
-let id=1;
-let taskname=document.querySelector("#taskname");
-let taskList=document.querySelector("#taskList");
-taskname.addEventListener("keypress",function(e){
+let tasks = [];
+let id = 1;
+let taskname = document.querySelector("#taskname");
+let taskList = document.querySelector("#taskList");
+taskname.addEventListener("keypress", function (e) {
 
-    if(e.key=="Enter")
-        {
-           // tasks.push(taskname.value);
-            let obj={};
-            obj.title=taskname.value;
-             obj.status="Pending";
-            obj.taskid=id;
-            id++;
-            tasks.push(obj);
-            
-            addtoDom(obj);
-            console.log(tasks);
-            taskname.value="";
+    if (e.key == "Enter") {
+        // tasks.push(taskname.value);
+        let obj = {};
+        obj.title = taskname.value;
+        obj.status = "Pending";
+        obj.taskid = id;
+        id++;
+        tasks.push(obj);
+        setLocalStorage();
+
+        addtoDom(obj);
+        console.log(tasks);
+        taskname.value = "";
 
 
-        }
-   // console.log("Enter Called");
+    }
+    // console.log("Enter Called");
 
 })
-function addtoDom(task)
-{
-        // let li=document.createElement("li");
-        // li.innerText=taskname.value;
+function addtoDom(task) {
+    // let li=document.createElement("li");
+    // li.innerText=taskname.value;
 
-        // taskList.append(li);
-        let taskdiv=document.createElement("div");
-        taskdiv.setAttribute("id",task.taskid);
+    // taskList.append(li);
+    let taskdiv = document.createElement("div");
+    taskdiv.setAttribute("id", task.taskid);
 
 
-        let span=document.createElement("span");
-        span.innerText=task.title;
+    let span = document.createElement("span");
+    span.innerText = task.title;
+
+    let chk = document.createElement("input");
+    chk.setAttribute("type", "checkbox");
+    chk.addEventListener("click", function () {
+        //  console.log(chk.checked);
+        let newstatus = "";
+        if (chk.checked == true) {
+            newstatus = "Completed";
+            span.style.textDecoration = "line-through";
+
+        }
+        else {
+            newstatus = "Pending";
+            span.style.textDecoration = "none";
+
+        }
+
+        tasks = tasks.map(function (item) {
+            if (item.taskid == task.taskid)
+                item.status = newstatus;
+
+            return item;
+        })
+        setLocalStorage();
+        console.log(tasks);
+
+    })
+    let delbtn = document.createElement("button");
+    delbtn.innerText = "del";
+    // delbtn.addEventListener("click", function () {
+    //     taskdiv.remove();
+    //     //console.log(tasks);
+    //     tasks = tasks.filter(function (item) {
+    //         if (item.taskid != task.taskid)
+    //             return true;
+
+    //     })
+    //     console.log(tasks);
+    // })
+    delbtn.addEventListener("click",delHandler)
+
 
     taskdiv.append(span);
+    taskdiv.append(chk);
+    taskdiv.append(delbtn);
+
 
     taskList.append(taskdiv);
 
 
 }
 
+function delHandler(e)
+{
+    let parent=e.target.parentNode;
+    let id=parent.getAttribute("id");
 
+    parent.remove();
+        tasks = tasks.filter(function (item) {
+            if (item.taskid != id)
+                return true;
+
+        })
+        setLocalStorage();
+        console.log(tasks);
+
+}
+function setLocalStorage()
+{
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+    
+    //let arr=["one","two"];
+    //document.write(arr);
+    // let obj={};
+    // obj.title="First";
+    // document.write(obj);
+
+//    localStorage.setItem("name",JSON.stringify(obj));
+   // let data=JSON.parse(localStorage.getItem("name"));
+
+   // console.log(data.title);
+
+
+
+}
+
+function getLocalStorage()
+{
+
+    if(localStorage.getItem("tasks"))
+        tasks=JSON.parse(localStorage.getItem("tasks"));
+
+    tasks.forEach(function(item){
+        addtoDom(item);
+        
+    })
+    console.log(tasks);
+
+}
+getLocalStorage();
